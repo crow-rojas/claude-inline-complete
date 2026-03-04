@@ -1,0 +1,95 @@
+{
+  "name": "claude-inline-complete",
+  "displayName": "Claude Inline Autocomplete",
+  "description": "Inline ghost-text completions powered by Claude (Copilot-style)",
+  "version": "0.1.0",
+  "publisher": "crow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crow-rojas/claude-inline-complete.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "claude-inline.toggle",
+        "title": "Claude Inline: Toggle Completions"
+      }
+    ],
+    "configuration": {
+      "title": "Claude Inline Autocomplete",
+      "properties": {
+        "claude-inline.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable inline completions"
+        },
+        "claude-inline.debounceMs": {
+          "type": "number",
+          "default": 350,
+          "description": "Debounce delay in milliseconds before triggering completion"
+        },
+        "claude-inline.model": {
+          "type": "string",
+          "default": "claude-haiku-4-5-latest",
+          "description": "Claude model to use for completions"
+        },
+        "claude-inline.maxTokensSingleLine": {
+          "type": "number",
+          "default": 64,
+          "description": "Max tokens for single-line completions"
+        },
+        "claude-inline.maxTokensMultiLine": {
+          "type": "number",
+          "default": 128,
+          "description": "Max tokens for multi-line completions"
+        },
+        "claude-inline.cliPath": {
+          "type": "string",
+          "default": "claude",
+          "description": "Path to the claude CLI executable"
+        },
+        "claude-inline.cliTimeoutMs": {
+          "type": "number",
+          "default": 8000,
+          "description": "Timeout in milliseconds for CLI subprocess calls"
+        },
+        "claude-inline.prefixLines": {
+          "type": "number",
+          "default": 100,
+          "description": "Number of lines before cursor to include as context"
+        },
+        "claude-inline.suffixLines": {
+          "type": "number",
+          "default": 30,
+          "description": "Number of lines after cursor to include as context"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "test": "node --import tsx --test src/**/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}
